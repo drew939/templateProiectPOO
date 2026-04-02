@@ -40,5 +40,5 @@ class CardVirtual : virtual public CardDebit{
 };
 
 class CardPrepaid : virtual public CardVirtual{
-    double limitaIncarcareLunara;
+    int limitaIncarcareLunara;
 };

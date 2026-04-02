@@ -14,7 +14,7 @@ class ContCurent : virtual public ContBancar{
     private:
         double comisionAdministrare;
         double pragIncasareLunara;
-        double limitaDescoperire;
+        //?double limitaDescoperire;
     public:
         ContCurent(std::string _valuta) : ContBancar(_valuta){}
 
@@ -30,6 +30,8 @@ class ContEconomii : virtual public ContBancar{
 };
 
 class ContCurentAcumulare : virtual public ContCurent, virtual public ContEconomii{
+    double soldMinim; //pentru a primi dobanda
+    //ziCapitalizare ar trebui sa fie zilnic/saptamanal
 
 };
 
@@ -49,13 +51,16 @@ class DepozitBancar : virtual public ContEconomii{
 };
 
 class ContInvestitii : virtual public ContBancar{
-    std::vector<std::string> portofoliuActiuni;
+    double randament;
+    std::string pachetInvestitii;
+    double investitieInitiala;
+    std::string gradRisc;
 };
 
 class ContSweep : virtual public ContCurent, virtual public ContEconomii{
     private:
         double prag;
-        std::string frecventaSurplus;
+        std::string frecventaSurplus; //zilnic,saptamanl,lunar
     public:
 
 };

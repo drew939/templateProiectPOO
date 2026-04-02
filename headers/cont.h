@@ -30,7 +30,7 @@ class ContEconomii : virtual public ContBancar{
 };
 
 class ContCurentAcumulare : virtual public ContCurent, virtual public ContEconomii{
-    double soldMinim; //pentru a primi dobanda
+   
     //ziCapitalizare ar trebui sa fie zilnic/saptamanal
 
 };
@@ -50,14 +50,13 @@ class DepozitBancar : virtual public ContEconomii{
 
 };
 
-class ContInvestitii{
-    private:
-        std::string titularCont;    
+class ContInvestitii : virtual public ContBancar{
+    private:   
         double randament;
-        std::string instrumentInvestitii;
+        //std::string instrumentInvestitii;
         double investitieInitiala;
         std::string gradRisc;
-        std::string valuta;
+        std::vector<ActivFinanciar*> portofoliu;
 };
 
 

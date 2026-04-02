@@ -29,6 +29,8 @@ class CardCredit : virtual public CardBancar{
     private:
         double limitaCredit;
         double dobanda;
+        double sumaMinimaPlata;
+        std::string dataScadentaLunara;
 };
 
 class CardOverdraft : virtual public CardDebit, virtual public CardCredit{

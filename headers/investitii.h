@@ -1,6 +1,6 @@
 #pragma once
 
-class ActivFinanciar{
+class ActivFinanciar {
     protected:
         std::string identificator;
         double pretCurent;
@@ -23,7 +23,7 @@ class ActivFinanciar{
         friend std::ostream& operator<<(std::ostream& out, const ActivFinanciar& a);
 };
 
-class Actiune : virtual public ActivFinanciar{
+class Actiune : virtual public ActivFinanciar {
     protected:
         int numarActiuni;
         std::string numeCompanie;
@@ -41,7 +41,7 @@ class Actiune : virtual public ActivFinanciar{
         std::string getNumeCompanie() const {return numeCompanie;}
 };
 
-class Obligatiune : virtual public ActivFinanciar{
+class Obligatiune : virtual public ActivFinanciar {
     protected:
         double dobandaAnuala;
         int durata;
@@ -52,7 +52,7 @@ class Obligatiune : virtual public ActivFinanciar{
         virtual ~Obligatiune() {}
 
         void afisareDetalii() const override;
-        ActivFinanciar*  clone() const override {return new Obligatiune(*this);}
+        ActivFinanciar* clone() const override {return new Obligatiune(*this);}
 
         double getDobandaAnuala() const {return dobandaAnuala;}
         int getDurata() const {return durata;}
@@ -92,9 +92,9 @@ class FondMutualMixt {
         FondMutualMixt& operator=(const FondMutualMixt& other);
         ~FondMutualMixt();
 
-        void adaugaActiune(Actiune* a)         { portofoliuActiuni.push_back(a);     }
-        void adaugaObligatiune(Obligatiune* o) { portofoliuObligatiuni.push_back(o); }
-        void adaugaTitlu(TitluDeStat* t)       { portofoliuTitluri.push_back(t);     }
+        void adaugaActiune(Actiune* a)      {portofoliuActiuni.push_back(a);}
+        void adaugaObligatiune(Obligatiune* o)      {portofoliuObligatiuni.push_back(o);}
+        void adaugaTitlu(TitluDeStat* t)        {portofoliuTitluri.push_back(t);}
 
         void afisareDetalii() const;
         friend std::ostream& operator<<(std::ostream& out, const FondMutualMixt& f);

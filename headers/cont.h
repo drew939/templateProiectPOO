@@ -1,7 +1,7 @@
 #pragma once
 #include "investitii.h"
 
-class ContBancar{
+class ContBancar {
     protected:
         double sold;
         std::string iban;
@@ -14,8 +14,9 @@ class ContBancar{
         static std::string generareIban();
 
     public:
-        ContBancar(std::string _valuta, double _sold = 0.0) : valuta(std::move(_valuta)), sold(_sold), 
-                                                              stareCont("ACTIV") {iban = generareIban();}
+        ContBancar(std::string _valuta, double _sold = 0.0) : 
+            valuta(std::move(_valuta)), sold(_sold), 
+            stareCont("ACTIV") {iban = generareIban();}
         
         virtual ~ContBancar() {}
         virtual void afisareDetalii() const = 0;
@@ -42,7 +43,7 @@ class ContBancar{
 
 };
 
-class ContCurent : virtual public ContBancar{
+class ContCurent : virtual public ContBancar {
     protected:
         double comisionAdministrare;
         double pragIncasareLunara;
@@ -62,7 +63,7 @@ class ContCurent : virtual public ContBancar{
         double getLimitaDescoperire() const {return limitaDescoperire;}
 };
 
-class ContEconomii : virtual public ContBancar{
+class ContEconomii : virtual public ContBancar {
     protected:
         double dobanda;
         double soldMinim;
@@ -112,7 +113,7 @@ class ContRoundUp : virtual public ContEconomii {
         ContBancar* clone() const override {return new ContRoundUp(*this);}
 };
 
-class DepozitBancar : virtual public ContEconomii{
+class DepozitBancar : virtual public ContEconomii {
     private:
         int termen;
         std::string dataMaturitate;

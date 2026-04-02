@@ -1,5 +1,3 @@
-#pragma once
-
 class ActivFinanciar{
     private:
         std::string identificator;

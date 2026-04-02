@@ -1,5 +1,3 @@
-#pragma once
-
 class Imprumut{
     private:
         double sumaCreditata;

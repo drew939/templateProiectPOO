@@ -1,5 +1,3 @@
-#pragma once
-
 class CardBancar{
     private:
         bool activat = false;

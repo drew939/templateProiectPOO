@@ -1,5 +1,3 @@
-#pragma once
-
 class ContBancar{
     private:
         double sold;

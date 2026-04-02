@@ -1,5 +1,3 @@
-#pragma once
-
 class Client{
     private:
         std::string nume;

@@ -39,7 +39,7 @@ class ContBancar {
             return *this;
         }
 
-        friend std::ostream& operator<<(std::ostream& os, const ContBancar& c);
+        friend std::ostream& operator<<(std::ostream& out, const ContBancar& c);
 
 };
 

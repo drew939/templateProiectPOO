@@ -71,15 +71,15 @@ void Client::stergeCont(int index)
 }
 
 
-std::ostream& operator<<(std::ostream& os, const Client& c)
+std::ostream& operator<<(std::ostream& out, const Client& c)
 {
-    os << "[Client] Nume=" << c.nume
+    out << "[Client] Nume=" << c.nume
        << " | Email=" << c.email
        << " | Telefon=" << c.telefon
        << " | Conturi=" << c.conturi.size()
        << " | Imprumuturi=" << c.imprumuturi.size()
        << " | Carduri=" << c.carduri.size();
-    return os;
+    return out;
 }
 
 ClientPersoanaFizica::ClientPersoanaFizica(std::string _nume, std::string _prenume, std::string _email, std::string _telefon, std::string _cnp, int _varsta) :

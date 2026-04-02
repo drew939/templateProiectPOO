@@ -50,14 +50,24 @@ class DepozitBancar : virtual public ContEconomii{
 
 };
 
-class ContInvestitii : virtual public ContBancar{
-    double randament;
-    std::string pachetInvestitii;
-    double investitieInitiala;
-    std::string gradRisc;
+class ContInvestitii{
+    private:
+        std::string titularCont;    
+        double randament;
+        std::string instrumentInvestitii;
+        double investitieInitiala;
+        std::string gradRisc;
+        std::string valuta;
 };
 
-class ContSweep : virtual public ContCurent, virtual public ContEconomii{
+
+class ContBusiness : virtual public ContBancar{
+    private:
+        std::vector<std::string> imputerniciti;
+
+};
+
+class ContSweep : virtual public ContBusiness, virtual public ContEconomii{
     private:
         double prag;
         std::string frecventaSurplus; //zilnic,saptamanl,lunar

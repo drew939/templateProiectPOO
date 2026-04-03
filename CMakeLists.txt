@@ -16,7 +16,7 @@ else()
 endif()
 
 # Main executable
-add_executable(${PROJECT_NAME} src/main.cpp headers/card.cpp headers/client.cpp headers/cont.cpp headers/imprumut.cpp headers/investii.cpp headers/meniu.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp include/card.cpp include/client.cpp include/cont.cpp include/imprumut.cpp include/investii.cpp include/meniu.cpp)
 
 if(GITHUB_ACTIONS)
     message("NOTE: GITHUB_ACTIONS defined")

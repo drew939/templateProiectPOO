@@ -15,7 +15,7 @@ public:
     ~Meniu();
 
     void adaugaClient(Client* client);
-    Client* cautaClientDupaId(const std::string& id);   // CNP sau CUI
+    Client* cautaClientDupaId(const std::string& id);
     void stergeClient(const std::string& id);
     void afiseazaTotiClientii() const;
 

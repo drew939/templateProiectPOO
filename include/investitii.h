@@ -9,9 +9,9 @@ class ActivFinanciar {
         double pretCurent;
         std::string dataAchizitie;
     public:
-        ActivFinanciar(std::string id, double pret, std::string data) : 
-            identificator(std::move(id)), pretCurent(pret),
-            dataAchizitie(std::move(data)) {}
+        ActivFinanciar(const std::string& id, double pret, const std::string& data) : 
+            identificator(id), pretCurent(pret),
+            dataAchizitie(data) {}
 
         virtual ~ActivFinanciar() {}
 
@@ -31,9 +31,9 @@ class Actiune : virtual public ActivFinanciar {
         int numarActiuni;
         std::string numeCompanie;
     public:
-        Actiune(std::string id, double pret, std::string data, int nr, std::string companie) : 
-            ActivFinanciar(std::move(id), pret, std::move(data)),
-            numarActiuni(nr), numeCompanie(std::move(companie)) {}
+        Actiune(const std::string& id, double pret, const std::string& data, int nr, const std::string& companie) : 
+            ActivFinanciar(id, pret, data),
+            numarActiuni(nr), numeCompanie(companie) {}
 
         virtual ~Actiune() {}
 
@@ -49,8 +49,8 @@ class Obligatiune : virtual public ActivFinanciar {
         double dobandaAnuala;
         int durata;
     public:
-        Obligatiune(std::string id, double pret, std::string data, double dob, int dur) : 
-            ActivFinanciar(std::move(id), pret, std::move(data)), dobandaAnuala(dob), durata(dur) {}
+        Obligatiune(const std::string& id, double pret, const std::string& data, double dob, int dur) : 
+            ActivFinanciar(id, pret, data), dobandaAnuala(dob), durata(dur) {}
 
         virtual ~Obligatiune() {}
 
@@ -63,8 +63,8 @@ class Obligatiune : virtual public ActivFinanciar {
 
 class TitluDeStat : virtual public Obligatiune{
     public:
-        TitluDeStat(std::string id, double pret, std::string data, double dob, int dur) :
-            ActivFinanciar(std::move(id), pret, std::move(data)),
+        TitluDeStat(const std::string& id, double pret, const std::string& data, double dob, int dur) :
+            ActivFinanciar(id, pret, data),
             Obligatiune(id, pret, data, dob, dur) {}
 
         virtual ~TitluDeStat() {}
@@ -87,8 +87,8 @@ class FondMutualMixt {
         void stergePortofoliu();
 
     public:
-        FondMutualMixt(std::string nume, double valoare, double comision) : 
-            numeFond(std::move(nume)), valoareTotala(valoare),
+        FondMutualMixt(const std::string& nume, double valoare, double comision) : 
+            numeFond(nume), valoareTotala(valoare),
             comisionAdministrare(comision) {}
 
         FondMutualMixt(const FondMutualMixt& other);
@@ -107,8 +107,8 @@ class ActiuneFractionara : virtual public Actiune {
     private:
         double fractiune;
     public:
-        ActiuneFractionara(std::string id, double pret, std::string data, int nr, std::string companie, double frac) : 
-            ActivFinanciar(std::move(id), pret, std::move(data)),
+        ActiuneFractionara(const std::string& id, double pret, const std::string& data, int nr, const std::string& companie, double frac) : 
+            ActivFinanciar(id, pret, data),
             Actiune(id, pret, data, nr, companie), fractiune(frac) {}
 
         virtual ~ActiuneFractionara() {}

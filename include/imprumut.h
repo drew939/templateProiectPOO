@@ -11,10 +11,10 @@ class Imprumut{
         double soldRamasDePlata;
         std::string ibanContRambursare;
     public:
-        Imprumut(double suma, std::string scad, double rata, double dob, std::string iban) : 
-                sumaCreditata(suma), scadenta(std::move(scad)),
+        Imprumut(double suma, const std::string& scad, double rata, double dob, const std::string& iban) : 
+                sumaCreditata(suma), scadenta(scad),
                 rataLunara(rata), dobandaAnuala(dob),
-                soldRamasDePlata(suma), ibanContRambursare(std::move(iban)) 
+                soldRamasDePlata(suma), ibanContRambursare(iban) 
                 {
                     if (suma <= 0)
                         throw ExceptieSumaInvalida("Suma creditata trebuie sa fie pozitiva!");
@@ -49,9 +49,9 @@ class CreditGarantat : virtual public Imprumut{
         std::string bunGarantat;
         double valoareGarantie;
     public:
-        CreditGarantat(double suma, std::string scad, double rata, double dob, std::string iban, std::string bun, double valGar) :
-            Imprumut(suma, std::move(scad), rata, dob, std::move(iban)),
-            bunGarantat(std::move(bun)), valoareGarantie(valGar) {}
+        CreditGarantat(double suma, const std::string& scad, double rata, double dob, const std::string& iban, const std::string& bun, double valGar) :
+            Imprumut(suma, scad, rata, dob, iban),
+            bunGarantat(bun), valoareGarantie(valGar) {}
         virtual ~CreditGarantat() {}
 
         void afisareDetalii() const override;
@@ -63,8 +63,8 @@ class CreditRefinantare : virtual public Imprumut{
         std::string bancaInitiala;
         double sumaRefinantata;
     public:
-        CreditRefinantare(double suma, std::string scad, double rata, double dob, std::string iban, std::string banca, double sumaRef) : 
-            Imprumut(suma, std::move(scad), rata, dob, std::move(iban)), bancaInitiala(std::move(banca)), sumaRefinantata(sumaRef) {}
+        CreditRefinantare(double suma, const std::string& scad, double rata, double dob, const std::string& iban, const std::string& banca, double sumaRef) : 
+            Imprumut(suma, scad, rata, dob, iban), bancaInitiala(banca), sumaRefinantata(sumaRef) {}
 
         virtual ~CreditRefinantare() {}
 
@@ -74,12 +74,12 @@ class CreditRefinantare : virtual public Imprumut{
 
 class RefinantareIpotecara : virtual public CreditGarantat, virtual public CreditRefinantare{
     public:
-        RefinantareIpotecara(double suma, std::string scad, double rata, double dob, 
-                            std::string iban, std::string bun, double valGar, 
-                            std::string banca, double sumaRef):
+        RefinantareIpotecara(double suma, const std::string& scad, double rata, double dob, 
+                            const std::string& iban, const std::string& bun, double valGar, 
+                            const std::string& banca, double sumaRef):
                                 Imprumut(suma, scad, rata, dob, iban),
-                                CreditGarantat(suma, scad, rata, dob, iban, std::move(bun), valGar),
-                                CreditRefinantare(suma, scad, rata, dob, iban, std::move(banca), sumaRef) {}
+                                CreditGarantat(suma, scad, rata, dob, iban, bun, valGar),
+                                CreditRefinantare(suma, scad, rata, dob, iban, banca, sumaRef) {}
 
         virtual ~RefinantareIpotecara() {}
 
@@ -89,8 +89,8 @@ class RefinantareIpotecara : virtual public CreditGarantat, virtual public Credi
 
 class CreditNevoiPersonale : virtual public Imprumut{
     public:
-        CreditNevoiPersonale(double suma, std::string scad, double rata, double dob, std::string iban) : 
-            Imprumut(suma, std::move(scad), rata, dob, std::move(iban)) {}
+        CreditNevoiPersonale(double suma, const std::string& scad, double rata, double dob, const std::string& iban) : 
+            Imprumut(suma, scad, rata, dob, iban) {}
 
         virtual ~CreditNevoiPersonale() {}
 
@@ -100,9 +100,9 @@ class CreditNevoiPersonale : virtual public Imprumut{
 
 class LeasingAuto : virtual public CreditGarantat{
     public:
-        LeasingAuto(double suma, std::string scad, double rata, double dob, std::string iban, std::string bun, double valGar) :
+        LeasingAuto(double suma, const std::string& scad, double rata, double dob, const std::string& iban, const std::string& bun, double valGar) :
                 Imprumut(suma, scad, rata, dob, iban),
-                CreditGarantat(suma, std::move(scad), rata, dob, std::move(iban), std::move(bun), valGar) {}
+                CreditGarantat(suma, scad, rata, dob, iban, bun, valGar) {}
 
         virtual ~LeasingAuto() {}
 

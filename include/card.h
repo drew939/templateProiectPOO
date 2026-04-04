@@ -18,7 +18,7 @@ class CardBancar {
         std::string operatorPlati;
 
     public:
-        CardBancar(std::string _valuta, std::string _operator) : valuta(std::move(_valuta)), operatorPlati(std::move(_operator)) {}
+        CardBancar(const std::string& _valuta, const std::string& _operator) : valuta(_valuta), operatorPlati(_operator) {}
 
         virtual ~CardBancar() {}
 
@@ -54,8 +54,8 @@ class CardDebit : virtual public CardBancar {
         double limitaRetragere;
         bool platiInternationale;
     public:
-        CardDebit(std::string valuta, std::string op, double limita = 5000.0, bool international = false) :
-            CardBancar(std::move(valuta), std::move(op)), limitaRetragere(limita), platiInternationale(international) {}
+        CardDebit(const std::string& valuta, const std::string op, double limita = 5000.0, bool international = false) :
+            CardBancar(valuta, op), limitaRetragere(limita), platiInternationale(international) {}
 
         virtual ~CardDebit() {}
 
@@ -79,8 +79,8 @@ class CardCredit : virtual public CardBancar {
         std::string dataScadentaLunara;
     
     public:
-        CardCredit(std::string valuta, std::string op, double limita = 10000.0, double dob = 0.0) : 
-            CardBancar(std::move(valuta), std::move(op)),
+        CardCredit(const std::string& valuta, const std::string& op, double limita = 10000.0, double dob = 0.0) : 
+            CardBancar(valuta, op),
             limitaCredit(limita), dobanda(dob) {}
 
         virtual ~CardCredit() {}
@@ -97,8 +97,8 @@ class CardOverdraft : virtual public CardDebit, virtual public CardCredit {
         double taxaDepasireLimita = 0.0;
 
     public:
-        CardOverdraft(std::string valuta, std::string op, double limRetragere = 5000.0, double limCredit = 10000.0,double taxa = 0.0) :
-                CardBancar(std::move(valuta), std::move(op)), CardDebit(valuta, op, limRetragere),
+        CardOverdraft(const std::string& valuta, const std::string& op, double limRetragere = 5000.0, double limCredit = 10000.0,double taxa = 0.0) :
+                CardBancar(valuta, op), CardDebit(valuta, op, limRetragere),
                 CardCredit(valuta, op, limCredit), taxaDepasireLimita(taxa) {}
 
         virtual ~CardOverdraft() {}
@@ -112,7 +112,7 @@ protected:
     bool singleUse = false;
 
 public:
-    CardVirtual(std::string valuta, std::string op, bool su = false) : CardBancar(std::move(valuta), std::move(op)),
+    CardVirtual(const std::string& valuta, const std::string& op, bool su = false) : CardBancar(valuta, op),
                                                                        CardDebit(valuta, op), singleUse(su) {}
 
     virtual ~CardVirtual() {}
@@ -128,8 +128,8 @@ class CardPrepaid : virtual public CardVirtual {
         int limitaIncarcareLunara = 1000;
 
     public:
-        CardPrepaid(std::string valuta, std::string op, int limita = 1000) : 
-            CardBancar(std::move(valuta), std::move(op)), CardDebit(valuta, op),
+        CardPrepaid(const std::string& valuta, const std::string& op, int limita = 1000) : 
+            CardBancar(valuta, op), CardDebit(valuta, op),
             CardVirtual(valuta, op), limitaIncarcareLunara(limita) {}
 
         virtual ~CardPrepaid() {}

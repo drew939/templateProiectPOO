@@ -15,7 +15,7 @@ class ContBancar {
         static std::string generareIban();
 
     public:
-        ContBancar(std::string _valuta, double _sold = 0.0) : 
+        ContBancar(const std::string& _valuta, double _sold = 0.0) : 
             sold(_sold), valuta(_valuta), 
             stareCont("ACTIV") {iban = generareIban();}
         
@@ -50,8 +50,8 @@ class ContCurent : virtual public ContBancar {
         double pragIncasareLunara;
         double limitaDescoperire;
     public:
-        ContCurent(std::string _valuta, double _sold = 0.0, double comision = 10.0, double limDescoperire = 1000.0) : 
-                ContBancar(std::move(_valuta), _sold), comisionAdministrare(comision), 
+        ContCurent(const std::string _valuta, double _sold = 0.0, double comision = 10.0, double limDescoperire = 1000.0) : 
+                ContBancar(_valuta, _sold), comisionAdministrare(comision), 
                 pragIncasareLunara(0.0), limitaDescoperire(limDescoperire) {}
         virtual ~ContCurent() {}
 
@@ -70,8 +70,8 @@ class ContEconomii : virtual public ContBancar {
         double soldMinim;
         int ziCapitalizare;
     public:
-        ContEconomii(std::string _valuta, double soldInitial = 0.0, double dob = 0.0, double soldMin = 0.0) : 
-            ContBancar(std::move(_valuta), soldInitial), dobanda(dob), 
+        ContEconomii(const std::string& _valuta, double soldInitial = 0.0, double dob = 0.0, double soldMin = 0.0) : 
+            ContBancar(_valuta, soldInitial), dobanda(dob), 
             soldMinim(soldMin), ziCapitalizare(10) {}
 
         virtual ~ContEconomii() {}
@@ -88,8 +88,8 @@ class ContEconomii : virtual public ContBancar {
 
 class ContCurentAcumulare : virtual public ContCurent, virtual public ContEconomii {
     public:
-        ContCurentAcumulare(std::string _valuta, double soldInitial = 0.0, double comision = 0.0, double dob = 1.0) : 
-            ContBancar(std::move(_valuta), soldInitial), ContCurent(_valuta, soldInitial, comision),
+        ContCurentAcumulare(const std::string& _valuta, double soldInitial = 0.0, double comision = 0.0, double dob = 1.0) : 
+            ContBancar(_valuta, soldInitial), ContCurent(_valuta, soldInitial, comision),
             ContEconomii(_valuta, soldInitial, dob) {}
 
     virtual ~ContCurentAcumulare() {}
@@ -105,9 +105,9 @@ class ContRoundUp : virtual public ContEconomii {
         std::string ibanContSursa;
 
     public:
-        ContRoundUp(std::string _valuta, double soldInitial = 0.0, int multiplicator = 2, std::string ibanSursa = "") :
-         ContBancar(std::move(_valuta), soldInitial), ContEconomii(_valuta, soldInitial), 
-         multiplicatorRotunjire(multiplicator), ibanContSursa(std::move(ibanSursa)) {}
+        ContRoundUp(const std::string& _valuta, double soldInitial = 0.0, int multiplicator = 2, const std::string& ibanSursa = "") :
+         ContBancar(_valuta, soldInitial), ContEconomii(_valuta, soldInitial), 
+         multiplicatorRotunjire(multiplicator), ibanContSursa(ibanSursa) {}
 
         virtual ~ContRoundUp() {}
 
@@ -122,8 +122,8 @@ class DepozitBancar : virtual public ContEconomii {
         bool prelungireAutomata;
 
     public:
-        DepozitBancar(std::string _valuta, double soldInitial = 0.0, int t = 12, double dob = 3.0, bool prelungire = false) : 
-            ContBancar(std::move(_valuta), soldInitial), ContEconomii(_valuta, soldInitial, dob),
+        DepozitBancar(const std::string& _valuta, double soldInitial = 0.0, int t = 12, double dob = 3.0, bool prelungire = false) : 
+            ContBancar(_valuta, soldInitial), ContEconomii(_valuta, soldInitial, dob),
             termen(t), prelungireAutomata(prelungire) {}
 
         virtual ~DepozitBancar() {}
@@ -146,9 +146,9 @@ class ContInvestitii : virtual public ContBancar {
         std::vector<ActivFinanciar*> portofoliu;
 
     public:
-        ContInvestitii(std::string _valuta, double soldInitial = 0.0, double rand = 0.0, std::string risc = "MEDIU") :
-            ContBancar(std::move(_valuta), soldInitial), randament(rand), investitieInitiala(soldInitial),
-            gradRisc(std::move(risc)) {}
+        ContInvestitii(const std::string& _valuta, double soldInitial = 0.0, double rand = 0.0, const std::string& risc = "MEDIU") :
+            ContBancar(_valuta, soldInitial), randament(rand), investitieInitiala(soldInitial),
+            gradRisc(risc) {}
 
         ContInvestitii(const ContInvestitii& other);
         ContInvestitii& operator=(const ContInvestitii& other);
@@ -168,8 +168,8 @@ class ContBusiness : virtual public ContBancar {
         std::vector<std::string> imputerniciti;
 
     public:
-        ContBusiness(std::string _valuta, double soldInitial = 0.0) :
-            ContBancar(std::move(_valuta), soldInitial) {}
+        ContBusiness(const std::string& _valuta, double soldInitial = 0.0) :
+            ContBancar(_valuta, soldInitial) {}
 
         virtual ~ContBusiness() {}
 
@@ -185,7 +185,7 @@ class ContSweep : virtual public ContBusiness, virtual public ContEconomii {
         std::string frecventaSurplus;
 
     public:
-        ContSweep(std::string _valuta, double soldInitial = 0.0, double _prag = 10000.0, std::string frecventa = "ZILNIC") : ContBancar(std::move(_valuta), soldInitial), ContBusiness(_valuta, soldInitial), ContEconomii(_valuta, soldInitial), prag(_prag), frecventaSurplus(std::move(frecventa)) {}
+        ContSweep(const std::string& _valuta, double soldInitial = 0.0, double _prag = 10000.0, const std::string frecventa = "ZILNIC") : ContBancar(_valuta, soldInitial), ContBusiness(_valuta, soldInitial), ContEconomii(_valuta, soldInitial), prag(_prag), frecventaSurplus(frecventa) {}
 
         virtual ~ContSweep() {}
 

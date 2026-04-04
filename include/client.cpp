@@ -82,8 +82,8 @@ std::ostream& operator<<(std::ostream& out, const Client& c)
     return out;
 }
 
-ClientPersoanaFizica::ClientPersoanaFizica(std::string _nume, std::string _prenume, std::string _email, std::string _telefon, std::string _cnp, int _varsta) :
-			Client(std::move(_nume), std::move(_email), std::move(_telefon)), prenume(std::move(_prenume)), cnp(std::move(_cnp))
+ClientPersoanaFizica::ClientPersoanaFizica(const std::string& _nume, const std::string& _prenume, const std::string& _email, const std::string& _telefon, const std::string& _cnp, int _varsta) :
+			Client(_nume, _email, _telefon), prenume(_prenume), cnp(_cnp)
 			{
 				if (_varsta < 18)
 					throw ExceptieVarstaInvalida(

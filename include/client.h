@@ -16,8 +16,8 @@ class Client {
 		std::vector<CardBancar*> carduri;
 
 	public:
-		Client(std::string _nume, std::string _email, std::string _telefon) : 
-				nume(std::move(_nume)), email(std::move(_email)), telefon(std::move(_telefon)) {}
+		Client(const std::string& _nume, const std::string& _email, const std::string& _telefon) : 
+				nume(_nume), email(_email), telefon(_telefon) {}
 
 		Client(const Client& other);            
 		Client& operator=(const Client& other); 
@@ -64,7 +64,7 @@ class ClientPersoanaFizica : virtual public Client {
 		int varsta;
 
 	public:
-		ClientPersoanaFizica(std::string _nume, std::string _prenume, std::string _email, std::string _telefon, std::string _cnp, int _varsta);
+		ClientPersoanaFizica(const std::string& _nume, const std::string& _prenume, const std::string& _email, const std::string& _telefon, const std::string& _cnp, int _varsta);
 		virtual ~ClientPersoanaFizica() {}
 
 		void afisareDetalii() const override;
@@ -81,9 +81,9 @@ class ClientPersoanaJuridica : virtual public Client {
 		std::string cui;
 
 	public:
-		ClientPersoanaJuridica(std::string _nume, std::string _email, std::string _telefon, std::string _tipEntitate, std::string _cui) : 
-				Client(std::move(_nume), std::move(_email), std::move(_telefon)),
-				tipEntitate(std::move(_tipEntitate)), cui(std::move(_cui)) {}
+		ClientPersoanaJuridica(const std::string& _nume, const std::string& _email, const std::string& _telefon, const std::string& _tipEntitate, const std::string& _cui) : 
+				Client(_nume, _email, _telefon),
+				tipEntitate(_tipEntitate), cui(_cui) {}
 
 		virtual ~ClientPersoanaJuridica() {}
 

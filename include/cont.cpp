@@ -91,6 +91,10 @@ void ContCurentAcumulare::afisareDetalii() const
               << "    Dobanda acumulare: " << dobanda << "%\n";
 }
 
+void ContCurentAcumulare::retrage(double suma)
+{
+    ContCurent::retrage(suma);
+}
 
 void ContRoundUp::afisareDetalii() const 
 {

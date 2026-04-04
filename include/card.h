@@ -1,5 +1,6 @@
 #pragma once
 #include "exceptii.h"
+#include<string>
 
 class CardBancar {
     protected:

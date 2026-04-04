@@ -1,6 +1,6 @@
 #pragma once
 #include <stdexcept>
-
+#include<string>
 
 class ExceptieFonduriInsuficiente : public std::runtime_error {
     public:

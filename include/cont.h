@@ -94,6 +94,7 @@ class ContCurentAcumulare : virtual public ContCurent, virtual public ContEconom
     virtual ~ContCurentAcumulare() {}
 
     void afisareDetalii() const override;
+     void retrage(double suma) override;
     ContBancar* clone() const override {return new ContCurentAcumulare(*this);}
 };
 

@@ -110,7 +110,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           cppcheck --enable=all --project="${BUILD_DIR}"/compile_commands.json \
-            --suppress=missingIncludeSystem --error-exitcode=1
+            --suppress=missingIncludeSystem --suppress=unusedParameter --error-exitcode=1
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

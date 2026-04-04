@@ -1,5 +1,6 @@
 #pragma once
 #include "investitii.h"
+#include<string>
 
 class ContBancar {
     protected:

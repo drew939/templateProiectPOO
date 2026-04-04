@@ -1,9 +1,10 @@
 #include "cont.h"
 #include "exceptii.h"
 #include<iostream>
-#include<string.h>
+#include<string>
 #include<vector>
 #include<stdexcept>
+#include<ostream>
 
 int ContBancar::contorIban = 100200001100;
 

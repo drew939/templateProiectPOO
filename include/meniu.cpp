@@ -316,7 +316,7 @@ void Meniu::meniuPrincipal()
     int opt;
     do {
         afiseazaSeparator();
-        std::cout << "Meniu Principal\n";
+        std::cout << "  SISTEM BANKING\n";
         afiseazaSeparator();
         std::cout << " 1. Adauga client nou\n"
                   << " 2. Cauta client (CNP/CUI)\n"

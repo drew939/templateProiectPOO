@@ -54,7 +54,7 @@ class CardDebit : virtual public CardBancar {
         double limitaRetragere;
         bool platiInternationale;
     public:
-        CardDebit(const std::string& valuta, const std::string op, double limita = 5000.0, bool international = false) :
+        CardDebit(const std::string& valuta, const std::string& op, double limita = 5000.0, bool international = false) :
             CardBancar(valuta, op), limitaRetragere(limita), platiInternationale(international) {}
 
         virtual ~CardDebit() {}

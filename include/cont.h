@@ -50,7 +50,7 @@ class ContCurent : virtual public ContBancar {
         double pragIncasareLunara;
         double limitaDescoperire;
     public:
-        ContCurent(const std::string _valuta, double _sold = 0.0, double comision = 10.0, double limDescoperire = 1000.0) : 
+        ContCurent(const std::string& _valuta, double _sold = 0.0, double comision = 10.0, double limDescoperire = 1000.0) : 
                 ContBancar(_valuta, _sold), comisionAdministrare(comision), 
                 pragIncasareLunara(0.0), limitaDescoperire(limDescoperire) {}
         virtual ~ContCurent() {}
@@ -185,7 +185,7 @@ class ContSweep : virtual public ContBusiness, virtual public ContEconomii {
         std::string frecventaSurplus;
 
     public:
-        ContSweep(const std::string& _valuta, double soldInitial = 0.0, double _prag = 10000.0, const std::string frecventa = "ZILNIC") : ContBancar(_valuta, soldInitial), ContBusiness(_valuta, soldInitial), ContEconomii(_valuta, soldInitial), prag(_prag), frecventaSurplus(frecventa) {}
+        ContSweep(const std::string& _valuta, double soldInitial = 0.0, double _prag = 10000.0, const std::string& frecventa = "ZILNIC") : ContBancar(_valuta, soldInitial), ContBusiness(_valuta, soldInitial), ContEconomii(_valuta, soldInitial), prag(_prag), frecventaSurplus(frecventa) {}
 
         virtual ~ContSweep() {}
 

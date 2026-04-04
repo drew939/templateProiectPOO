@@ -15,7 +15,7 @@ class ContBancar {
 
     public:
         ContBancar(std::string _valuta, double _sold = 0.0) : 
-            valuta(std::move(_valuta)), sold(_sold), 
+            valuta(_valuta), sold(_sold), 
             stareCont("ACTIV") {iban = generareIban();}
         
         virtual ~ContBancar() {}

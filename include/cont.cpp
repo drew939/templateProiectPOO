@@ -6,7 +6,7 @@
 #include<stdexcept>
 #include<ostream>
 
-int ContBancar::contorIban = 100200001100;
+long long int ContBancar::contorIban = 100200001100;
 
 std::string ContBancar::generareIban() 
 {

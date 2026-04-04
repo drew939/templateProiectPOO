@@ -10,7 +10,7 @@ class ContBancar {
         std::string dataDeschiderii;
         std::string stareCont;
 
-        static int contorIban;
+        static long long int contorIban;
         static std::string generareIban();
 
     public:

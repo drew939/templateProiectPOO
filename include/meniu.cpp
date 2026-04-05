@@ -118,7 +118,7 @@ void Meniu::efectueazaRetragere(const std::string& idClient, int indexCont, doub
                       << cca->getLimitaDescoperire() << " " << cca->getValuta() << "\n";
         }
 
-        ContInvestitii* ci = dynamic_cast<ContInvestitii*>(cont);
+        const ContInvestitii* ci = dynamic_cast<ContInvestitii*>(cont);
         if (ci != nullptr) 
         {
             std::cout << "Cont Investitii detectat."
@@ -188,7 +188,7 @@ void Meniu::meniuCautaClient()
     std::cout << "Introdu CNP sau CUI: ";
     std::cin >> id;
     try {
-        Client* c = cautaClientDupaId(id);
+        const Client* c = cautaClientDupaId(id);
         std::cout << "\n";
         c->afisareDetalii();
     } catch (const ExceptieClientNegasit& e) {

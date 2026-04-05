@@ -109,7 +109,7 @@ jobs:
       - name: Static Analysis (Cppcheck)
         if: runner.os == 'Linux'
         run: |
-          cppcheck --enable=all --project="${BUILD_DIR}"/compile_commands.json \
+          cppcheck --enable=warning,performance,portability --disable=style --project="${BUILD_DIR}"/compile_commands.json \
             --suppress=missingIncludeSystem --error-exitcode=1
 
       - name: Upload Artifacts

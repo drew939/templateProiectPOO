@@ -32,7 +32,7 @@ void ContBancar::retrage(double suma)
 
 std::ostream& operator<<(std::ostream& out, const ContBancar& c) 
 {
-    out << "[Cont] IBAN=" << c.iban
+    out << "[" << c.getTipCont() << "] IBAN=" << c.iban
        << " | Valuta=" << c.valuta
        << " | Sold=" << c.sold
        << " | Titular=" << c.titularCont
@@ -135,7 +135,7 @@ void DepozitBancar::afisareDetalii() const
 
 ContInvestitii::ContInvestitii(const ContInvestitii& other) : 
         ContBancar(other.valuta, other.sold), randament(other.randament),
-        investitieInitiala(other.investitieInitiala), gradRisc(other.gradRisc) 
+        investitieInitiala(other.investitieInitiala), profilRisc(other.profilRisc) 
             {
                 for(const auto* activ : other.portofoliu)
                     portofoliu.push_back(activ->clone());
@@ -152,7 +152,7 @@ ContInvestitii& ContInvestitii::operator=(const ContInvestitii& other)
     sold = other.sold;
     randament = other.randament;
     investitieInitiala = other.investitieInitiala;
-    gradRisc = other.gradRisc;
+    profilRisc = other.profilRisc;
     for(const auto* activ : other.portofoliu)
         portofoliu.push_back(activ->clone());
     return *this;
@@ -172,7 +172,7 @@ void ContInvestitii::afisareDetalii() const
               << "    Titular             : " << titularCont << "\n"
               << "    Investitie initiala : " << investitieInitiala << " " << valuta << "\n"
               << "    Randament           : " << randament << "%\n"
-              << "    Grad risc           : " << gradRisc << "\n"
+              << "    Profil risc         : " << profilRisc << "\n"
               << "    Portofoliu (" << portofoliu.size() << " active):\n";
     for(const auto* activ : portofoliu)
         activ->afisareDetalii();

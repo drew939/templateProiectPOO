@@ -23,6 +23,8 @@ class ContBancar {
         virtual void afisareDetalii() const = 0;
         virtual ContBancar* clone() const = 0;
 
+        virtual std::string getTipCont() const = 0;
+
         virtual void depune(double suma);
         virtual void retrage(double suma);
 
@@ -58,6 +60,8 @@ class ContCurent : virtual public ContBancar {
         void afisareDetalii() const override;
         ContBancar* clone() const override {return new ContCurent(*this);}
 
+        std::string getTipCont() const override {return "ContCurent";}
+
         void retrage(double suma) override;
 
         double getComision() const {return comisionAdministrare;}
@@ -79,6 +83,8 @@ class ContEconomii : virtual public ContBancar {
         void afisareDetalii() const override;
         ContBancar* clone() const override {return new ContEconomii(*this);}
 
+        std::string getTipCont() const override {return "ContEconomii";}
+
         void aplicaDobanda();
 
         double getDobanda() const {return dobanda;}
@@ -92,11 +98,14 @@ class ContCurentAcumulare : virtual public ContCurent, virtual public ContEconom
             ContBancar(_valuta, soldInitial), ContCurent(_valuta, soldInitial, comision),
             ContEconomii(_valuta, soldInitial, dob) {}
 
-    virtual ~ContCurentAcumulare() {}
+        virtual ~ContCurentAcumulare() {}
 
-    void afisareDetalii() const override;
-     void retrage(double suma) override;
-    ContBancar* clone() const override {return new ContCurentAcumulare(*this);}
+        void afisareDetalii() const override;
+        void retrage(double suma) override;
+        ContBancar* clone() const override {return new ContCurentAcumulare(*this);}
+
+        std::string getTipCont() const override {return "ContCurentAcumulare";}
+
 };
 
 class ContRoundUp : virtual public ContEconomii {
@@ -113,6 +122,8 @@ class ContRoundUp : virtual public ContEconomii {
 
         void afisareDetalii() const override;
         ContBancar* clone() const override {return new ContRoundUp(*this);}
+
+        std::string getTipCont() const override {return "ContRoundUp";}
 };
 
 class DepozitBancar : virtual public ContEconomii {
@@ -136,19 +147,30 @@ class DepozitBancar : virtual public ContEconomii {
         int  getTermen() const {return termen;}
         bool activatPrelungireAutomata() const {return prelungireAutomata;}
 
+        std::string getTipCont() const override {return "DepozitBancar";}
+
 };
 
 class ContInvestitii : virtual public ContBancar {
     private:
         double randament;
         double investitieInitiala;
-        std::string gradRisc;
+        std::string profilRisc;
         std::vector<ActivFinanciar*> portofoliu;
 
+        static double calculeazaRandament(const std::string& profil) {
+            if (profil == "CONSERVATOR") 
+                return 7.50;
+            else if (profil == "DINAMIC")
+                return 30.00;
+                 else
+                    return 15.00;
+        }
+
     public:
-        ContInvestitii(const std::string& _valuta, double soldInitial = 0.0, double rand = 0.0, const std::string& risc = "MEDIU") :
-            ContBancar(_valuta, soldInitial), randament(rand), investitieInitiala(soldInitial),
-            gradRisc(risc) {}
+        ContInvestitii(const std::string& _valuta, double soldInitial = 0.0, const std::string& risc = "MEDIU") :
+            ContBancar(_valuta, soldInitial), randament(calculeazaRandament(risc)), investitieInitiala(soldInitial),
+            profilRisc(risc) {}
 
         ContInvestitii(const ContInvestitii& other);
         ContInvestitii& operator=(const ContInvestitii& other);
@@ -157,8 +179,10 @@ class ContInvestitii : virtual public ContBancar {
         void afisareDetalii() const override;
         ContBancar* clone() const override {return new ContInvestitii(*this);}
 
+        std::string getTipCont() const override {return "ContInvestitii";}
+
         void adaugaActiv(ActivFinanciar* activ) {portofoliu.push_back(activ);}
-        double getRandament() const {return randament;}
+        std::string getProfilRisc() const {return profilRisc;}
         int getDimensiunePortofoliu() const {return static_cast<int>(portofoliu.size());}
 };
 
@@ -176,6 +200,8 @@ class ContBusiness : virtual public ContBancar {
         void afisareDetalii() const override;
         ContBancar* clone() const override {return new ContBusiness(*this);}
 
+        std::string getTipCont() const override {return "ContBusiness";}
+        
         void adaugaImputernicit(const std::string& nume) {imputerniciti.push_back(nume);}
 };
 
@@ -191,4 +217,6 @@ class ContSweep : virtual public ContBusiness, virtual public ContEconomii {
 
         void afisareDetalii() const override;
         ContBancar* clone() const override {return new ContSweep(*this);}
+
+        std::string getTipCont() const override {return "ContSweep";}
 };

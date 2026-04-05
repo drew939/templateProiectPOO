@@ -122,13 +122,21 @@ void Meniu::efectueazaRetragere(const std::string& idClient, int indexCont, doub
         if (ci != nullptr) 
         {
             std::cout << "Cont Investitii detectat."
-                      << "Randament: " << ci->getRandament() << "%"
+                      << "Profil risc: " << ci->getProfilRisc() << "%"
                       << "|Active portofoliu: " << ci->getDimensiunePortofoliu() << "\n";
         }
 
         cont->retrage(suma);
+        double soldNou = cont->getSold();
+        std::string val = cont->getValuta();
         std::cout << "Retragere " << suma << " " << cont->getValuta()
                   << " efectuata. Sold nou: " << cont->getSold() << "\n";
+
+        if(dynamic_cast<DepozitBancar*>(cont) != nullptr && soldNou == 0.0)
+        {
+            client->stergeCont(indexCont);
+            std::cout << "Depozitul la termen a fost lichidat integral si contul a fost inchis.\n";
+        }
 
     } catch (const ExceptieFonduriInsuficiente& e) {
         std::cerr << "[EROARE] " << e.what() << "\n";
@@ -212,51 +220,104 @@ void Meniu::meniuStergeClient()
 void Meniu::meniuDeschideCont(Client* client)
 {
     afiseazaSeparator();
-    std::cout << "Tip cont:\n"
-              << "  1. ContCurent\n"
-              << "  2. ContEconomii\n"
-              << "  3. ContCurentAcumulare\n"
-              << "  4. DepozitBancar\n"
-              << "  5. ContInvestitii\n"
-              << "  6. ContBusiness\n"
-              << "Optiune: ";
-    int tip; 
-    std::cin >> tip;
 
+    bool estePF = (dynamic_cast<ClientPersoanaFizica*>(client) != nullptr);
+    
     std::string valuta;
     double soldInitial;
-    std::cout << "Valuta (RON/EUR/USD): "; 
-    std::cin >> valuta;
-    std::cout << "Sold initial: "; 
-    std::cin >> soldInitial;
-
     ContBancar* cont = nullptr;
+    int tip;
+
     try {
-        switch (tip) {
-            case 1: cont = new ContCurent(valuta, soldInitial);
-                break;
-            case 2: cont = new ContEconomii(valuta, soldInitial, 2.5);
-                break;
-            case 3: cont = new ContCurentAcumulare(valuta, soldInitial); 
-                break;
-            case 4: { 
-                int termen; std::cout << "Termen (luni): "; 
-                std::cin >> termen;
-                cont = new DepozitBancar(valuta, soldInitial, termen); 
-                    break;}
-            case 5: { 
-                double rand; std::cout << "Randament (%): "; 
-                std::cin >> rand;
-                cont = new ContInvestitii(valuta, soldInitial, rand); 
-                    break;}
-            case 6: cont = new ContBusiness(valuta, soldInitial); 
-                break;
-            default: std::cout << "Optiune invalida.\n"; 
-            return;
+        if(estePF)
+        {
+            std::cout << "Tip cont (persoana fizica):\n"
+                      << "  1. ContCurent\n"
+                      << "  2. ContEconomii\n"
+                      << "  3. ContCurentAcumulare\n"
+                      << "  4. DepozitBancar\n"
+                      << "  5. ContInvestitii\n"
+                      << "Optiune: ";
+            std::cin >> tip;
+            if (!std::cin || tip < 1 || tip > 5){
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "[EROARE] Optiune invalida.\n";
+                return;
+            }
+
+            std::cout << "Valuta (RON/EUR/USD): "; 
+            std::cin >> valuta;
+
+            std::cout << "Sold initial: "; 
+            std::cin >> soldInitial;
+
+            switch (tip) {
+                case 1: cont = new ContCurent(valuta, soldInitial);
+                    break;
+                case 2: cont = new ContEconomii(valuta, soldInitial, 2.5);
+                    break;
+                case 3: cont = new ContCurentAcumulare(valuta, soldInitial);
+                    break;
+                case 4: {
+                    int termen;
+                    std::cout << "Termen (luni): "; std::cin >> termen;
+                    cont = new DepozitBancar(valuta, soldInitial, termen);
+                    break;
+                }
+                case 5: {
+                    std::string profil;
+                    std::cout << "Profil risc (CONSERVATOR/MODERAT/DINAMIC): ";
+                    std::cin >> profil;
+                    if (profil != "CONSERVATOR" && profil != "MODERAT" && profil != "DINAMIC") {
+                        std::cout << "[AVERTISMENT] Profil necunoscut! Se foloseste MODERAT.\n";
+                        profil = "MODERAT";
+                    }
+                    cont = new ContInvestitii(valuta, soldInitial, profil);
+                    break;
+                }
+                default:
+                    std::cout << "Optiune invalida.\n";
+                    return;
+            }
         }
+        else
+        {
+            std::cout << "Tip cont (persoana juridica):\n"
+                      << "  1. ContBusiness\n"
+                      << "  2. ContSweep\n"
+                      << "Optiune: ";
+            int tip;
+            std::cin >> tip;
+            if (!std::cin || tip < 1 || tip > 2) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "[EROARE] Optiune invalida.\n";
+                return;
+            }
+
+            std::cout << "Valuta (RON/EUR/USD): "; std::cin >> valuta;
+            std::cout << "Sold initial: ";         std::cin >> soldInitial;
+
+            switch (tip) {
+                case 1: cont = new ContBusiness(valuta, soldInitial);
+                    break;
+                case 2: {
+                    double prag;
+                    std::cout << "Prag transfer (suma minima pentru sweep): "; std::cin >> prag;
+                    cont = new ContSweep(valuta, soldInitial, prag);
+                    break;
+                }
+                default:
+                    std::cout << "Optiune invalida.\n";
+                    return;
+            }
+        }
+
         cont->setTitular(client->getNume());
         client->adaugaCont(cont);
         std::cout << "[OK] " << *cont << "\n";
+
     } catch (const ExceptieSumaInvalida& e) {
         std::cerr << "[EROARE] " << e.what() << "\n";
         delete cont;
@@ -273,12 +334,27 @@ void Meniu::meniuOperatiuniCont(Client* client)
     std::cout << "Conturi disponibile:\n";
     for (int i = 0; i < client->getNumarConturi(); i++) 
         std::cout << "  " << i << ". " << *(*client)[i] << "\n";
-    int idx; double suma;
+    
+    double suma;
+
+    int idx; 
     std::cout << "Index cont: ";
     std::cin >> idx;
+    if (idx < 0 || idx >= client->getNumarConturi()) {
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cerr << "[EROARE] Index cont invalid!\n"
+                  << client->getNumarConturi() - 1 << ").\n";
+        return;
+    }
+
     std::cout << "1=Depunere, 2=Retragere: ";
     int op; 
     std::cin >> op;
+    if (op != 1 && op != 2) {
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cerr << "[EROARE] Optiune invalida!\n";
+        return;
+    }
     std::cout << "Suma: "; 
     std::cin >> suma;
 

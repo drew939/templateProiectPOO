@@ -74,7 +74,7 @@ jobs:
       - name: Prepare env
         run: |
           mkdir -p artifacts
-          echo -e "1\n1\Ionescu\nionescu@yahoo.com\n0722123456\nIon\n1234567890123\n30\n0\" > "${INPUT_FILENAME}"
+          echo -e "1\n1\Ionescu\nionescu@yahoo.com\n0722123456\nIon\n1234567890123\n30\n0" > "${INPUT_FILENAME}"
           if [ ! -f "${INPUT_FILENAME}" ]; then touch "${INPUT_FILENAME}"; fi
 
       - name: Install Linux Dependencies

@@ -287,7 +287,6 @@ void Meniu::meniuDeschideCont(Client* client)
                       << "  1. ContBusiness\n"
                       << "  2. ContSweep\n"
                       << "Optiune: ";
-            int tip;
             std::cin >> tip;
             if (!std::cin || tip < 1 || tip > 2) {
                 std::cin.clear();

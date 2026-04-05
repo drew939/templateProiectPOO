@@ -49,19 +49,19 @@ void ActiuneFractionara::afisareDetalii() const
 
 void FondMutualMixt::copiazaPortofoliu(const FondMutualMixt& other) 
 {
-    for (auto* a : other.portofoliuActiuni)
+    for(const auto* a : other.portofoliuActiuni)
         portofoliuActiuni.push_back(dynamic_cast<Actiune*>(a->clone()));
-    for (auto* o : other.portofoliuObligatiuni)
+    for(const auto* o : other.portofoliuObligatiuni)
         portofoliuObligatiuni.push_back(dynamic_cast<Obligatiune*>(o->clone()));
-    for (auto* t : other.portofoliuTitluri)
+    for(const auto* t : other.portofoliuTitluri)
         portofoliuTitluri.push_back(dynamic_cast<TitluDeStat*>(t->clone()));
 }
 
 void FondMutualMixt::stergePortofoliu() 
 {
-    for (auto* a : portofoliuActiuni)    delete a;
-    for (auto* o : portofoliuObligatiuni) delete o;
-    for (auto* t : portofoliuTitluri)    delete t;
+    for(const auto* a : portofoliuActiuni)    delete a;
+    for(const auto* o : portofoliuObligatiuni) delete o;
+    for(const auto* t : portofoliuTitluri)    delete t;
     portofoliuActiuni.clear();
     portofoliuObligatiuni.clear();
     portofoliuTitluri.clear();
@@ -96,11 +96,11 @@ void FondMutualMixt::afisareDetalii() const
               << "  Valoare totala  : " << valoareTotala << " RON\n"
               << "  Comision admin  : " << comisionAdministrare << "%\n"
               << "  --- Actiuni (" << portofoliuActiuni.size() << ") ---\n";
-    for (auto* a : portofoliuActiuni)     a->afisareDetalii();
+    for(const auto* a : portofoliuActiuni)     a->afisareDetalii();
         std::cout << "  --- Obligatiuni (" << portofoliuObligatiuni.size() << ") ---\n";
-    for (auto* o : portofoliuObligatiuni) o->afisareDetalii();
+    for(const auto* o : portofoliuObligatiuni) o->afisareDetalii();
         std::cout << "  --- Titluri de Stat (" << portofoliuTitluri.size() << ") ---\n";
-    for (auto* t : portofoliuTitluri)
+    for(const auto* t : portofoliuTitluri)
         t->afisareDetalii();
 }
 

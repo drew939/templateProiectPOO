@@ -11,7 +11,7 @@ Meniu& Meniu::getInstance()
 
 Meniu::~Meniu() 
 {
-    for (auto* client : listaClienti)
+    for(const auto* client : listaClienti)
         delete client;
 }
 

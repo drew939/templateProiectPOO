@@ -5,21 +5,21 @@
 
 void Client::copiazaDate(const Client& other) 
 {
-    for (auto* cont : other.conturi)
+    for(const auto* cont : other.conturi)
         conturi.push_back(cont->clone());
-    for (auto* imp : other.imprumuturi)
+    for(const auto* imp : other.imprumuturi)
         imprumuturi.push_back(imp->clone());
-    for (auto* card : other.carduri)
+    for(const auto* card : other.carduri)
         carduri.push_back(card->clone());
 }
 
 void Client::stergeDate()
 {
-    for (auto* cont : conturi)
+    for(const auto* cont : conturi)
 		delete cont;
-    for (auto* imp  : imprumuturi)
+    for(const auto* imp  : imprumuturi)
 		delete imp;
-    for (auto* card : carduri)	
+    for(const auto* card : carduri)	
 		delete card;
     conturi.clear();
     imprumuturi.clear();
@@ -103,13 +103,13 @@ void ClientPersoanaFizica::afisareDetalii() const
               << "  Email        : " << email << "\n"
               << "  Telefon      : " << telefon << "\n"
               << "  --- Conturi (" << conturi.size() << ") ---\n";
-    for (auto* cont : conturi)
+    for(const auto* cont : conturi)
 		cont->afisareDetalii();
     std::cout << "  --- Imprumuturi (" << imprumuturi.size() << ") ---\n";
-    for (auto* imp  : imprumuturi)
+    for(const auto* imp  : imprumuturi)
 		imp->afisareDetalii();
     std::cout << "  --- Carduri (" << carduri.size() << ") ---\n";
-    for (auto* card : carduri)
+    for(const auto* card : carduri)
 		card->afisareDetalii();
 }
 
@@ -122,13 +122,13 @@ void ClientPersoanaJuridica::afisareDetalii() const
               << "  Email       : " << email << "\n"
               << "  Telefon     : " << telefon << "\n"
               << "  --- Conturi (" << conturi.size() << ") ---\n";
-    for (auto* cont : conturi)    
+    for(const auto* cont : conturi)    
 		cont->afisareDetalii();
     std::cout << "  --- Imprumuturi (" << imprumuturi.size() << ") ---\n";
-    for (auto* imp  : imprumuturi) 
+    for(const auto* imp  : imprumuturi) 
 		imp->afisareDetalii();
     std::cout << "  --- Carduri (" << carduri.size() << ") ---\n";
-    for (auto* card : carduri)    
+    for(const auto* card : carduri)    
 		card->afisareDetalii();
 }
 

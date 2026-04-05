@@ -9,7 +9,7 @@ class CardBancar {
 
         std::string titularCard;
         std::string valuta;
-        double limitaTranzactii;
+        double limitaTranzactii = 0.0;
 
         std::string dataExpirare;
         std::string numarCard;
@@ -75,7 +75,7 @@ class CardCredit : virtual public CardBancar {
     protected:
         double limitaCredit;
         double dobanda;
-        double sumaMinimaPlata;
+        double sumaMinimaPlata = 250.00;
         std::string dataScadentaLunara;
     
     public:

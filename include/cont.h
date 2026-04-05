@@ -16,8 +16,8 @@ class ContBancar {
 
     public:
         ContBancar(const std::string& _valuta, double _sold = 0.0) : 
-            sold(_sold), valuta(_valuta), 
-            stareCont("ACTIV") {iban = generareIban();}
+            sold(_sold), iban(generareIban()), 
+            valuta(_valuta), stareCont("ACTIV") {}
         
         virtual ~ContBancar() {}
         virtual void afisareDetalii() const = 0;

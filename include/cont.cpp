@@ -137,7 +137,7 @@ ContInvestitii::ContInvestitii(const ContInvestitii& other) :
         ContBancar(other.valuta, other.sold), randament(other.randament),
         investitieInitiala(other.investitieInitiala), gradRisc(other.gradRisc) 
             {
-                for(auto* activ : other.portofoliu)
+                for(const auto* activ : other.portofoliu)
                     portofoliu.push_back(activ->clone());
             }
 
@@ -145,7 +145,7 @@ ContInvestitii& ContInvestitii::operator=(const ContInvestitii& other)
 {
     if (this == &other) 
         return *this;
-    for (auto* activ : portofoliu) 
+    for(const auto* activ : portofoliu) 
         delete activ;
     portofoliu.clear();
     valuta = other.valuta;
@@ -153,14 +153,14 @@ ContInvestitii& ContInvestitii::operator=(const ContInvestitii& other)
     randament = other.randament;
     investitieInitiala = other.investitieInitiala;
     gradRisc = other.gradRisc;
-    for (auto* activ : other.portofoliu)
+    for(const auto* activ : other.portofoliu)
         portofoliu.push_back(activ->clone());
     return *this;
 }
 
 ContInvestitii::~ContInvestitii() 
 {
-    for (auto* activ : portofoliu) 
+    for(const auto* activ : portofoliu) 
         delete activ;
 }
 
@@ -174,7 +174,7 @@ void ContInvestitii::afisareDetalii() const
               << "    Randament           : " << randament << "%\n"
               << "    Grad risc           : " << gradRisc << "\n"
               << "    Portofoliu (" << portofoliu.size() << " active):\n";
-    for (auto* activ : portofoliu)
+    for(const auto* activ : portofoliu)
         activ->afisareDetalii();
 }
 
@@ -185,7 +185,7 @@ void ContBusiness::afisareDetalii() const
               << "    Sold         : " << sold << " " << valuta << "\n"
               << "    Titular      : " << titularCont << "\n"
               << "    Imputerniciti: ";
-    for (const auto& imp : imputerniciti)
+    for(const auto& imp : imputerniciti)
         std::cout << imp << "; ";
     std::cout << "\n";
 }

@@ -67,6 +67,9 @@ void Meniu::afiseazaTotiClientii() const
 
 void Meniu::deschideCont(const std::string& idClient, ContBancar* cont) 
 {
+    if (cont == nullptr) {
+        throw std::invalid_argument("nullptr to ContBancar");
+    }
     try {
         Client* client = cautaClientDupaId(idClient);
         cont->setTitular(client->getNume());

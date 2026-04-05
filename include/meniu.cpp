@@ -70,6 +70,9 @@ void Meniu::deschideCont(const std::string& idClient, ContBancar* cont)
     if (cont == nullptr) {
         throw std::invalid_argument("nullptr to ContBancar");
     }
+    if (idClient.empty()) {
+        throw std::invalid_argument("idClient cannot be empty");
+    }
     try {
         Client* client = cautaClientDupaId(idClient);
         cont->setTitular(client->getNume());

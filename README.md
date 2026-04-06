@@ -302,13 +302,13 @@ Refinantare credit ipotecar cu garantie imobiliara.
 
 ---
 
-## 4. Aspecte ale implementarii
+## 4. Alte aspecte ale implementarii
 - **Singleton** - Meniu (instanta unica globala)
 - **Prototype** - metoda `clone()` in toate ierarhiile
 - **Factory** - `generareIban()` pentru identificatori unici
 - **Template Method** - metode virtuale in clase abstracte
-- Resource management (destructori virtuali, cleanup memorie)
-- Error handling cu exceptii tipizate
+- **Resource management** (destructori virtuali, cleanup memorie)
+- **Error handling** cu exceptii tipizate
 
 ---
 
@@ -330,21 +330,25 @@ Refinantare credit ipotecar cu garantie imobiliara.
 ### Submeniu: Deschide cont
 
 **Pentru persoane fizice:**
+```
 1. ContCurent
 2. ContEconomii
 3. ContCurentAcumulare
 4. DepozitBancar
 5. ContInvestitii
+```
 
 **Pentru persoane juridice:**
+```
 1. ContBusiness
 2. ContSweep
+```
 
 ---
 
 ## Etapele rularii aplicatiei
 
-1. **Pornire**: programul creeaza instanta Singleton a meniului
+1. **Pornire**: programul creeaza instanta singleton a meniului
 2. **Interactiune**: utilizatorul foloseste meniul ierarhizat
 3. **Validare**: toate datele sunt validate si exceptiile sunt tratate
 4. **Stocare**: clientii si produsele sunt salvate in vectori

@@ -113,7 +113,7 @@ Metode:
 - **CreditRefinantare** - preluare de la alta banca
 - **CreditNevoiPersonale** - consum negarantat
 - **LeasingAuto** - CreditGarantat pentru automobile
-- **RefinantareIpotecara(mostenire diamant) ------ `CreditGarantat` + `CreditRefinantare`
+- **RefinantareIpotecara**(mostenire diamant) ------ `CreditGarantat` + `CreditRefinantare`
 
 ---
 

@@ -6,11 +6,11 @@
 #include<stdexcept>
 #include<ostream>
 
-long long int ContBancar::contorIban = 100200001100;
+long long int ContBancar::contorIban = 103200511100;
 
 std::string ContBancar::generareIban() 
 {
-    return "RO49AAAA" + std::to_string(contorIban++);
+    return "RO49ABCDUMX" + std::to_string(contorIban++);
 }
 
 void ContBancar::depune(double suma) 
